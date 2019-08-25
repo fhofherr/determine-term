@@ -3,6 +3,14 @@
 `determine-term` is a simple tool that tries to determine if a shell is
 being executed from within a terminal emulator.
 
+## Installation
+
+```sh
+make
+sudo make install
+```
+
+
 ## Usage
 
 `determine-term` starts with its own process id and walks the tree of
