@@ -13,6 +13,7 @@ func main() {
 	if len(os.Args) == 0 {
 		fmt.Println("Usage:")
 		fmt.Printf("\n\t%s <name> [names ...]", os.Args[0])
+		os.Exit(1)
 	}
 	expectedTerms := make(map[string]struct{}, len(os.Args)-1)
 	for _, s := range os.Args[1:] {
