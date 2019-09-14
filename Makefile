@@ -3,14 +3,14 @@ GO := go
 .DEFAULT_GOAL := build
 
 .PHONY: build
-build: bin/determine-term
+build: bin/detterm
 
-bin/determine-term: cmd/determine-term/main.go
+bin/detterm: cmd/detterm/main.go
 	$(GO) build -o $@ ./$<
 
 .PHONY: install
 install:
-	cp bin/determine-term /usr/local/bin
+	cp bin/detterm /usr/local/bin
 
 .PHONY: clean
 clean:

@@ -1,4 +1,4 @@
-module github.com/fhofherr/determine-term
+module github.com/fhofherr/detterm
 
 go 1.12
 

@@ -1,4 +1,4 @@
-// determine-term starts with its own process id and walks the process tree
+// detterm starts with its own process id and walks the process tree
 // until it finds one of the passed terminal emulators.
 package main
 
