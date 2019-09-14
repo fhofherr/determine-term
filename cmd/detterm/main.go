@@ -5,20 +5,35 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/mitchellh/go-ps"
 )
 
-func main() {
-	if len(os.Args) == 0 {
-		fmt.Println("Usage:")
-		fmt.Printf("\n\t%s <name> [names ...]", os.Args[0])
-		os.Exit(1)
-	}
-	expectedTerms := make(map[string]struct{}, len(os.Args)-1)
-	for _, s := range os.Args[1:] {
+var defaultEmulators = []string{"alacritty", "konsole", "yakuake"} //nolint: gochecknoglobals
+
+func makeTermLookup(names []string) map[string]struct{} {
+	expectedTerms := make(map[string]struct{}, len(names))
+	for _, s := range names {
 		expectedTerms[s] = struct{}{}
 	}
+	return expectedTerms
+}
+
+func emulatorNamesFromEnv() []string {
+	emulators := os.Getenv("DETTERM_EMULATORS")
+	if emulators == "" {
+		return nil
+	}
+	return strings.Split(emulators, " ")
+}
+
+func main() {
+	emulatorNames := emulatorNamesFromEnv()
+	if len(emulatorNames) == 0 {
+		emulatorNames = defaultEmulators
+	}
+	expectedTerms := makeTermLookup(emulatorNames)
 	pid := os.Getpid()
 	for pid != 1 {
 		proc, err := ps.FindProcess(pid)
